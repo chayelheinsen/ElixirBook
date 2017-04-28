@@ -1,7 +1,10 @@
-# Book
+# ElixirBook
+Simple address book API written in Elixir with Phoenix
 
-To start your Phoenix app:
-
+To start:
+  * `$ brew install elixir`
+  * `$ mix local.hex`
+  * `$ mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez` 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `npm install`
