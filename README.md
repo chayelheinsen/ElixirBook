@@ -1,18 +1,16 @@
 # ElixirBook
 Simple address book API written in Elixir with Phoenix
 
-To start:
+### Gettings started
   * `$ brew install elixir`
   * `$ mix local.hex`
   * `$ mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez` 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
+  * Install dependencies with `$ mix deps.get`
+  * Go into `config` > `dev.exs` and change the username and password for your local database.
+  * Create and migrate the database with `mix ecto.create && mix ecto.migrate`. 
   * Start Phoenix endpoint with `mix phoenix.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+Now you can open the [API.paw](./API.paw) doc to make API requests.
 
 ## Learn more
 
