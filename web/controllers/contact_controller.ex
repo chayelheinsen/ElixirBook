@@ -3,6 +3,13 @@ defmodule Book.ContactController do
 
   alias Book.Contact
 
+  def index(conn, %{"is_active" => active}) do
+    contacts = Contact
+    |> Contact.active(active == "true")
+    |> Repo.all
+    render(conn, "index.json", contacts: contacts)
+  end
+
   def index(conn, _params) do
     contacts = Repo.all(Contact)
     render(conn, "index.json", contacts: contacts)

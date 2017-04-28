@@ -12,6 +12,7 @@ defmodule Book.ContactView do
   def render("contact.json", %{contact: contact}) do
     %{id: contact.id,
       name: contact.name,
-      phone_number: contact.phone_number}
+      phone_number: contact.phone_number,
+      is_active: contact.is_active}
   end
 end
