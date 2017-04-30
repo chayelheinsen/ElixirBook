@@ -5,6 +5,8 @@ defmodule Book.User do
     field :username, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    has_many :contacts, Book.Contact, on_delete: :delete_all
+
     timestamps()
   end
 
@@ -34,5 +36,10 @@ defmodule Book.User do
     {:ok, claims} = Guardian.Plug.claims(new_conn)
     exp = Map.get(claims, "exp")
     {new_conn, jwt, exp}
+  end
+
+  def without_password(query) do
+    from c in query,
+    select: [:id, :username]
   end
 end

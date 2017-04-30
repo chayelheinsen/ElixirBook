@@ -2,9 +2,17 @@ defmodule Book.RegistrationController do
   use Book.Web, :controller
 
   alias Book.Password
+
   plug Guardian.Plug.EnsureAuthenticated, [handler: Book.AuthHandler] when action in [:logout]
   plug :scrub_params, "user" when action in [:create, :login]
   plug :action
+
+  def index(conn, _params) do
+    users = User
+    |> User.without_password
+    |> Repo.all
+    render(conn, "users.json", users: users)
+  end
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.registration_changeset(%User{}, user_params)
@@ -12,9 +20,12 @@ defmodule Book.RegistrationController do
     if changeset.valid? do
       case Password.generate_password_and_store_user(changeset) do
         {:ok, user} ->
-          conn
+          {new_conn, jwt, exp} = User.create_token(conn, user)
+          new_conn
           |> put_status(:created)
-          |> render("user.json", user: user)
+          |> put_resp_header("authorization", "Bearer #{jwt}")
+          |> put_resp_header("x-expires", "#{exp}")
+          |> render("user.json", user: user, jwt: jwt, expiration: exp)
 
         {:error, changeset} ->
           conn

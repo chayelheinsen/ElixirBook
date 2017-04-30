@@ -13,6 +13,7 @@ defmodule Book.ContactView do
     %{id: contact.id,
       name: contact.name,
       phone_number: contact.phone_number,
-      is_active: contact.is_active}
+      is_active: contact.is_active,
+      user_id: contact.user_id}
   end
 end

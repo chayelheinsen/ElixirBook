@@ -1,6 +1,15 @@
 defmodule Book.RegistrationView do
   use Book.Web, :view
 
+  def render("users.json", %{users: users}) do
+    render_many(users, Book.RegistrationView, "user.json")
+  end
+
+  def render("user.json", %{registration: user}) do
+    %{id: user.id,
+      username: user.username}
+  end
+
   def render("user.json", %{user: user, jwt: jwt, expiration: exp}) do
     %{id: user.id,
       username: user.username,

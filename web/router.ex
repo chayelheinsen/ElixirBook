@@ -25,6 +25,9 @@ defmodule Book.Router do
     pipe_through :api
 
     resources "/contacts", ContactController, except: [:new, :edit]
+    get "/users/:user_id/contacts", ContactController, :index
+
+    get "/users", RegistrationController, :index
     post "/users", RegistrationController, :create
     post "/login", RegistrationController, :login
     delete "/logout", RegistrationController, :logout

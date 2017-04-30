@@ -3,6 +3,8 @@ defmodule Book.ContactController do
 
   alias Book.Contact
 
+  plug Guardian.Plug.EnsureAuthenticated, [handler: Book.AuthHandler]
+
   def index(conn, %{"is_active" => active}) do
     contacts = Contact
     |> Contact.active(active == "true")
@@ -10,8 +12,10 @@ defmodule Book.ContactController do
     render(conn, "index.json", contacts: contacts)
   end
 
-  def index(conn, _params) do
-    contacts = Repo.all(Contact)
+  def index(conn, %{"user_id" => user_id}) do
+    contacts = Contact
+    |> Contact.from_user(user_id)
+    |> Repo.all
     render(conn, "index.json", contacts: contacts)
   end
 
