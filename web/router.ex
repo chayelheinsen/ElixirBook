@@ -11,6 +11,8 @@ defmodule Book.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", Book do
@@ -23,5 +25,8 @@ defmodule Book.Router do
     pipe_through :api
 
     resources "/contacts", ContactController, except: [:new, :edit]
+    post "/users", RegistrationController, :create
+    post "/login", RegistrationController, :login
+    delete "/logout", RegistrationController, :logout
   end
 end

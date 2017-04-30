@@ -36,6 +36,8 @@ defmodule Book.Web do
 
       import Book.Router.Helpers
       import Book.Gettext
+
+      alias Book.User
     end
   end
 
