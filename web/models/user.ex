@@ -18,7 +18,7 @@ defmodule Book.User do
   """
   def changeset(struct, params \\ :empty) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> unique_constraint(:username)
     |> validate_length(:username, min: 3)
   end

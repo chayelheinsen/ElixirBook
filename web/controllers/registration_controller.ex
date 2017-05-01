@@ -5,7 +5,6 @@ defmodule Book.RegistrationController do
 
   plug Guardian.Plug.EnsureAuthenticated, [handler: Book.AuthHandler] when action in [:logout]
   plug :scrub_params, "user" when action in [:create, :login]
-  plug :action
 
   def index(conn, _params) do
     users = User

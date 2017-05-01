@@ -18,7 +18,7 @@ defmodule Book.Contact do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required([:name, :phone_number, :user_id])
     |> validate_length(:name, min: 1)
     |> validate_length(:phone_number, min: 10)
@@ -33,6 +33,13 @@ defmodule Book.Contact do
 
   def from_user(query, user_id) do
     from c in query,
+    where: c.user_id == ^user_id,
+    select: c
+  end
+
+  def active_from_user(query, user_id, is_active) do
+    from c in query,
+    where: c.is_active == ^is_active,
     where: c.user_id == ^user_id,
     select: c
   end
